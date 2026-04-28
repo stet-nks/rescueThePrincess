@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
 
     // 🔹 Grid constants
     private static final int ROWS = 10;
-    private static final int COLS = 10;
+    private static final int COLS = 20;
 
     enum CellType {
         GRASS, PLAYER, PRINCESS, BOMB, WALL
