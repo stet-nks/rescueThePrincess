@@ -13,16 +13,6 @@ public class HelloApplication extends Application {
         launch();
     }
 
-
-//    @Override
-//    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-
     // 🔹 Grid constants
     private static final int ROWS = 10;
     private static final int COLS = 10;
