@@ -8,21 +8,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
-    public static void main(String[] args) {
-        launch();
-    }
-
-    // 🔹 Grid constants
-    private static final int ROWS = 10;
-    private static final int COLS = 20;
+public class Gameboard extends Application {
 
     enum CellType {
         GRASS, PLAYER, PRINCESS, BOMB, WALL
     }
 
-    // 🔹 Use "matrix" instead of "map"
-    private CellType[][] matrix = new CellType[ROWS][COLS];
+    // Use "matrix" instead of "map"
+    private CellType[][] matrix = new CellType[Constants.ROWS][Constants.COLS];
 
     @Override
     public void start(Stage stage) {
@@ -30,12 +23,14 @@ public class HelloApplication extends Application {
         initMatrix();
 
         GridPane grid = new GridPane();
+        grid.prefWidthProperty().bind(stage.widthProperty());
+        grid.prefHeightProperty().bind(stage.heightProperty());
         drawBoard(grid);
 
         BorderPane root = new BorderPane();
         root.setCenter(grid);
 
-        Scene scene = new Scene(root, 400,700);
+        Scene scene = new Scene(root, Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
 
         stage.setTitle("Rescue the Princess");
         stage.setScene(scene);
@@ -43,8 +38,8 @@ public class HelloApplication extends Application {
     }
 
     private void initMatrix() {
-        for (int r = 0; r < ROWS; r++) {
-            for (int c = 0; c < COLS; c++) {
+        for (int r = 0; r < Constants.ROWS; r++) {
+            for (int c = 0; c < Constants.COLS; c++) {
                 matrix[r][c] = CellType.GRASS;
             }
         }
@@ -60,11 +55,12 @@ public class HelloApplication extends Application {
     private void drawBoard(GridPane grid) {
         grid.getChildren().clear();
 
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
+        for (int row = 0; row < Constants.ROWS; row++) {
+            for (int col = 0; col < Constants.COLS; col++) {
 
                 StackPane cell = new StackPane();
-                cell.setPrefSize(20, 20);
+                cell.prefWidthProperty().bind(grid.widthProperty().divide(Constants.COLS));
+                cell.prefHeightProperty().bind(grid.heightProperty().divide(Constants.ROWS));
                 cell.setStyle("-fx-border-color: black; -fx-background-color: beige;");
 
                 Label label = new Label();
@@ -87,5 +83,4 @@ public class HelloApplication extends Application {
             }
         }
     }
-
 }
