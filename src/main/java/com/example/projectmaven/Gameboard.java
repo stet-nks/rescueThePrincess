@@ -49,7 +49,7 @@ public class Gameboard extends Application {
 
     //  Image loading
     private void loadImages() {
-        // Images live in src/main/resources/com/example/projectmaven/
+        // Images live in src/main/resources/com/example/projectmaven
         grassImage   = new Image(getClass().getResourceAsStream("grass.png"));
         playerImage  = new Image(getClass().getResourceAsStream("player.png"));
         princessImage = new Image(getClass().getResourceAsStream("princess.png"));
@@ -96,7 +96,7 @@ public class Gameboard extends Application {
     private void placeRandom(Random random, CellType type) {
         int r, c;
         do {
-            // Inner cells only: rows 1..(ROWS-2), cols 1..(COLS-2)
+            // Inner cells only: rows 1 (ROWS-2), cols 1 (COLS-2)
             r = 1 + random.nextInt(Constants.ROWS - 2);
             c = 1 + random.nextInt(Constants.COLS - 2);
         } while (matrix[r][c] != CellType.GRASS); // retry if cell already taken
@@ -143,7 +143,7 @@ public class Gameboard extends Application {
         ImageView iv = new ImageView(image);
         iv.setFitWidth(Constants.CELL_SIZE);
         iv.setFitHeight(Constants.CELL_SIZE);
-        iv.setPreserveRatio(false);
+        iv.setPreserveRatio(true);
         return iv;
     }
 }
