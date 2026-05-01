@@ -143,7 +143,7 @@ public class Gameboard extends Application {
         ImageView iv = new ImageView(image);
         iv.setFitWidth(Constants.CELL_SIZE);
         iv.setFitHeight(Constants.CELL_SIZE);
-        iv.setPreserveRatio(true);
+        iv.setPreserveRatio(false);
         return iv;
     }
 }
