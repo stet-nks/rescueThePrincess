@@ -31,6 +31,7 @@ public class Gameboard extends Application {
     private int playerRow = 1;
     private int playerCol = 1;
     private boolean gameOver = false;
+    private int lives = 3;
     private GridPane grid;
 
     @Override
@@ -124,6 +125,15 @@ public class Gameboard extends Application {
              showAlert(Alert.AlertType.INFORMATION, "Victory 🎉", "You rescued the princess!");
              gameOver = true;
              return;
+         }
+         if (destination == CellType.BOMB) {
+             lives--;
+             if (lives <= 0) {
+                 showAlert(Alert.AlertType.ERROR, "Game Over 💀", "You ran out of lives! Game over.");
+                 gameOver = true;
+             } else {
+                 showAlert(Alert.AlertType.WARNING, "Boom 💥", "You hit a bomb! Lives left: " + lives);
+             }
          }
     }
     private void showAlert(Alert.AlertType type, String title, String message) {
