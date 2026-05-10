@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 
 import java.util.Random;
 
@@ -111,12 +112,26 @@ public class Gameboard extends Application {
 
         if (matrix[newRow][newCol] == CellType.WALL) return;
 
+        CellType destination = matrix[newRow][newCol];
+
         matrix[playerRow][playerCol] = CellType.GRASS;
         matrix[newRow][newCol] = CellType.PLAYER;
         playerRow = newRow;
         playerCol = newCol;
 
         drawBoard(grid);
+         if (destination == CellType.PRINCESS) {
+             showAlert(Alert.AlertType.INFORMATION, "Victory 🎉", "You rescued the princess!");
+             gameOver = true;
+             return;
+         }
+    }
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     /** Places one item of the given type on a random free (GRASS) inner cell. */
