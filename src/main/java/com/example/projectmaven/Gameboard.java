@@ -27,6 +27,10 @@ public class Gameboard extends Application {
     private Image princessImage;
     private Image bombImage;
     private Image wallImage;
+    private int playerRow = 1;
+    private int playerCol = 1;
+    private boolean gameOver = false;
+    private GridPane grid;
 
     @Override
     public void start(Stage stage) {
@@ -34,7 +38,7 @@ public class Gameboard extends Application {
         loadImages();
         initMatrix();
 
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         drawBoard(grid);
 
         BorderPane root = new BorderPane();
@@ -44,6 +48,14 @@ public class Gameboard extends Application {
 
         stage.setTitle("Rescue the Princess");
         stage.setScene(scene);
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case DOWN  -> movePlayer(1, 0);
+                case RIGHT -> movePlayer(0, 1);
+                case LEFT  -> movePlayer(0, -1);
+                case UP    -> movePlayer(-1, 0);
+            }
+        });
         stage.show();
     }
 
@@ -90,6 +102,21 @@ public class Gameboard extends Application {
         for (int i = 0; i < NUM_BOMBS; i++) {
             placeRandom(random, CellType.BOMB);
         }
+    }
+     private void movePlayer(int dRow, int dCol) {
+        if (gameOver) return;
+
+        int newRow = playerRow + dRow;
+        int newCol = playerCol + dCol;
+
+        if (matrix[newRow][newCol] == CellType.WALL) return;
+
+        matrix[playerRow][playerCol] = CellType.GRASS;
+        matrix[newRow][newCol] = CellType.PLAYER;
+        playerRow = newRow;
+        playerCol = newCol;
+
+        drawBoard(grid);
     }
 
     /** Places one item of the given type on a random free (GRASS) inner cell. */
